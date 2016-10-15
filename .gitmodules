@@ -1,6 +1,6 @@
 [submodule "kumanodocs"]
 	path = kumanodocs
-	url = git@github.com:genya0407/kumanodocs.git
+	url = git@github.com:kumano-dormitory/kumanodocs.git
 [submodule "nginx/html"]
 	path = nginx/html
-	url = git@github.com:genya0407/kumano-top.git
+	url = git@github.com:kumano-dormitory/kumano-top.git
