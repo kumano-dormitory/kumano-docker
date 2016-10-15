@@ -3,20 +3,25 @@ services:
     nginx:
         image: nginx:stable-alpine
         ports:
-            - '8080:80'
-            #- '443:443'
+            - '80:80'
         volumes:
             - ./nginx/html:/etc/nginx/html:ro
             - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
             - ./nginx/users:/etc/nginx/users:ro
-    #    links:
-    #        - kumanodocs
+            - kumanodocs_static:/var/kumanodocs/static:ro
+        links:
+            - kumanodocs
     #        - kakomon
     #        - menu
-    #kumanodocs:
-    #    build: ./kumanodocs
-    #    expose:
-    #        - '8080'
+    kumanodocs:
+        build: ./kumanodocs
+        expose:
+            - '8080'
+        volumes:
+            - ./kumanodocs:/app
+            - kumanodocs_static:/var/static
+            - kumanodocs_database:/var/db
+            - /etc/localtime:/etc/localtime:ro
     #kakomon:
     #    build: ./kakomon
     #    expose:
@@ -25,3 +30,7 @@ services:
     #    build: ./menu
     #    expose:
     #        - '8080'
+    
+volumes:
+    kumanodocs_static:
+    kumanodocs_database:
