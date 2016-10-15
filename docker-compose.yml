@@ -30,7 +30,15 @@ services:
     #    build: ./menu
     #    expose:
     #        - '8080'
-    
+
+    backup:
+        build: ./backup
+        volumes:
+            - ./backup:/app
+            - kumanodocs_database:/var/db/kumanodocs:ro
+            - backup_tmp:/var/backup
+            - /etc/localtime:/etc/localtime:ro
 volumes:
     kumanodocs_static:
     kumanodocs_database:
+    backup_tmp:
