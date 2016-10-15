@@ -1,0 +1,3 @@
+[submodule "kumanodocs"]
+	path = kumanodocs
+	url = git@github.com:genya0407/kumanodocs.git
