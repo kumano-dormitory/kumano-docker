@@ -8,4 +8,4 @@ RUN echo "0 0 7 * * root /app/kumanodocs_big_backup.sh" >> /var/spool/cron/cront
 RUN echo "0 0 7 * * root /app/kumanodocs_delete_small_backup.sh" >> /var/spool/cron/crontabs/root
 RUN echo "0 0 22 * * root /app/kumanodocs_big_backup.sh" >> /var/spool/cron/crontabs/root
 RUN echo "0 0 22 * * root /app/kumanodocs_delete_small_backup.sh" >> /var/spool/cron/crontabs/root
-CMD cron -f
+CMD crond -f
