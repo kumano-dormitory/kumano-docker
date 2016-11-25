@@ -11,7 +11,6 @@ services:
             - kumanodocs_static:/var/kumanodocs/static:ro
         links:
             - kumanodocs
-    #        - kakomon
     #        - menu
     kumanodocs:
         build: ./kumanodocs
@@ -22,10 +21,6 @@ services:
             - kumanodocs_static:/var/static
             - kumanodocs_database:/var/db
             - /etc/localtime:/etc/localtime:ro
-    #kakomon:
-    #    build: ./kakomon
-    #    expose:
-    #        - '8080'
     #menu:
     #    build: ./menu
     #    expose:
