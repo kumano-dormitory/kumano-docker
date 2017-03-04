@@ -1,10 +1,14 @@
 language : bash
 before_script:
-  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-  - eval $(ssh-agent -s)
-  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - openssl aes-256-cbc -K $encrypted_9347f2c1fe13_key -iv $encrypted_9347f2c1fe13_iv -in id_rsa.enc -out id_rsa -d
+  - cp id_rsa ~/.ssh/
+  - chmod 600 ~/.ssh/id_rsa
 script :
-  - ssh -o StrictHostKeyChecking=no ${USER}@${DOMAIN} 'cd kumano-docker && bash ./deploy.sh'
+  - ssh -o StrictHostKeyChecking=no ${USER}@${DOMAIN} "cd kumano-docker &&
+                                                       git pull &&
+                                                       git submodule update --init --recursive &&
+                                                       echo ${SUDO_PASSWORD} | sudo -S docker-compose build &&
+                                                       echo ${SUDO_PASSWORD} | sudo -S systemctl restart kumano-docker.service"
 branches:
   only: 
     - master
