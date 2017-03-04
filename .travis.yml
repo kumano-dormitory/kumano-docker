@@ -1,4 +1,8 @@
 language : bash
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
 script :
   - ssh -o StrictHostKeyChecking=no ${USER}@${DOMAIN} 'cd kumano-docker && bash ./deploy.sh'
 branches:
