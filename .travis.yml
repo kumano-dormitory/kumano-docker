@@ -1,6 +1,6 @@
 language : bash
 script :
-  - ssh -oStrictHostKeyChecking=no ${USER}@${DOMAIN} 'cd kumano-docker && bash ./deploy.sh'
+  - ssh -o StrictHostKeyChecking=no ${USER}@${DOMAIN} 'cd kumano-docker && bash ./deploy.sh'
 branches:
   only: 
     - master
