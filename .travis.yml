@@ -7,8 +7,8 @@ script :
   - ssh -o StrictHostKeyChecking=no ${USER}@${DOMAIN} 'cd kumano-docker &&
                                                        git pull &&
                                                        git submodule update --init --recursive &&
-                                                       echo $SUDO_PASSWORD &&
-                                                       echo $SUDO_PASSWORD | sudo -S docker-compose build &&
+                                                       echo $HOGE &&
+                                                       echo $HOGE | sudo -S docker-compose build &&
                                                        sudo -S systemctl restart kumano-docker.service'
 branches:
   only: 
