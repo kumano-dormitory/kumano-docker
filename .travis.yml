@@ -1,0 +1,6 @@
+language : bash
+script :
+  - ssh ${USER}@${DOMAIN} 'cd kumano-docker && bash ./deploy.sh'
+branches:
+  only: 
+    - master
