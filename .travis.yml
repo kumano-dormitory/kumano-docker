@@ -8,7 +8,7 @@ script :
                                                        git pull &&
                                                        git submodule update --init --recursive &&
                                                        echo ${SUDO_PASSWORD} | sudo -S docker-compose build &&
-                                                       sudo -S systemctl restart kumano-docker.service"
+                                                       echo ${SUDO_PASSWORD} | sudo -S systemctl restart kumano-docker.service"
 branches:
   only: 
     - master
