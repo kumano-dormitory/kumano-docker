@@ -11,7 +11,7 @@ services:
             - kumanodocs_static:/var/kumanodocs/static:ro
         links:
             - kumanodocs
-    #        - menu
+            - menu
     kumanodocs:
         build: ./kumanodocs
         expose:
@@ -21,19 +21,26 @@ services:
             - kumanodocs_static:/var/static
             - kumanodocs_database:/var/db
             - /etc/localtime:/etc/localtime:ro
-    #menu:
-    #    build: ./menu
-    #    expose:
-    #        - '8080'
+    menu:
+        build: ./menu
+        expose:
+            - "3000"
+        volumes:
+            - ./menu:/app_readonly:ro
+            - /etc/localtime:/etc/localtime:ro
+            - menu_database:/var/db
+        privileged: true # to enable mount overlay
 
     backup:
         build: ./backup
         volumes:
             - ./backup:/app
             - kumanodocs_database:/var/db/kumanodocs:ro
+            - menu_database:/bar/db/menu:ro
             - backup_tmp:/var/backup
             - /etc/localtime:/etc/localtime:ro
 volumes:
     kumanodocs_static:
     kumanodocs_database:
+    menu_database:
     backup_tmp:

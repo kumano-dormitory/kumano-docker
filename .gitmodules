@@ -4,3 +4,6 @@
 [submodule "nginx/html"]
 	path = nginx/html
 	url = https://github.com/kumano-dormitory/kumano-top.git
+[submodule "menu"]
+	path = menu
+	url = https://github.com/kumano-dormitory/menu.git
