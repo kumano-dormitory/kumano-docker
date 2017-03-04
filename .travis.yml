@@ -4,12 +4,11 @@ before_script:
   - cp id_rsa ~/.ssh/
   - chmod 600 ~/.ssh/id_rsa
 script :
-  - ssh -o StrictHostKeyChecking=no ${USER}@${DOMAIN} 'cd kumano-docker &&
+  - ssh -o StrictHostKeyChecking=no ${USER}@${DOMAIN} "cd kumano-docker &&
                                                        git pull &&
                                                        git submodule update --init --recursive &&
-                                                       echo $HOGE &&
-                                                       echo $HOGE | sudo -S docker-compose build &&
-                                                       sudo -S systemctl restart kumano-docker.service'
+                                                       echo ${SUDO_PASSWORD} | sudo -S docker-compose build &&
+                                                       sudo -S systemctl restart kumano-docker.service"
 branches:
   only: 
     - master
