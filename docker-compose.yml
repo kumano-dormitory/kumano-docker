@@ -12,6 +12,9 @@ services:
         links:
             - kumanodocs
             - menu
+        environment:
+            - TZ=`ls -la /etc/localtime | cut -d/ -f8-9`
+
     kumanodocs:
         build: ./kumanodocs
         expose:
@@ -20,16 +23,25 @@ services:
             - ./kumanodocs:/app
             - kumanodocs_static:/var/static
             - kumanodocs_database:/var/db
-            - /etc/localtime:/etc/localtime:ro
+        environment:
+            - TZ=`ls -la /etc/localtime | cut -d/ -f8-9`
     menu:
         build: ./menu
         expose:
             - "3000"
         volumes:
             - ./menu:/app_readonly:ro
-            - /etc/localtime:/etc/localtime:ro
             - menu_database:/var/db
+        environment:
+            - TZ=`ls -la /etc/localtime | cut -d/ -f8-9`
         privileged: true # to enable mount overlay
+
+    bukai-issue-creator:
+        build: ./bukai-issue-creator
+        expose:
+            - "2000"
+        env_file:
+            - ./bukai-issue-creator/.env
 
     backup:
         build: ./backup
@@ -38,7 +50,8 @@ services:
             - kumanodocs_database:/var/db/kumanodocs:ro
             - menu_database:/bar/db/menu:ro
             - backup_tmp:/var/backup
-            - /etc/localtime:/etc/localtime:ro
+        environment:
+            - TZ=`ls -la /etc/localtime | cut -d/ -f8-9`
 volumes:
     kumanodocs_static:
     kumanodocs_database:
