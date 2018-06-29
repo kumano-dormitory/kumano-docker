@@ -12,6 +12,7 @@ services:
         links:
             - kumanodocs
             - menu
+            - bukai-issue-creator
         environment:
             - TZ=`ls -la /etc/localtime | cut -d/ -f8-9`
 
