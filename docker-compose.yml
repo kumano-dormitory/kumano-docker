@@ -28,7 +28,7 @@ services:
         volumes:
             - ./kumanodocs-hanami:/app
             - kumanodocs_hanami_static:/app/public/assets
-            - kumanodocs_hanami_sock:/tmp/sockets
+            - kumanodocs_hanami_sock:/tmp
             - /etc/localtime:/etc/localtime
         depends_on:
             - kumanodocs_postgres
@@ -36,10 +36,9 @@ services:
             - ./kumanodocs-hanami/.env
     kumanodocs_postgres:
         image: postgres:11.3-alpine
-        ports:
-            - "5432:5432"
         volumes:
             - postgres_database:/var/lib/postgresql/data
+            - kumanodocs_hanami_sock:/var/run/postgresql
         env_file:
             - ./kumanodocs-hanami/.env.pg
     menu:
