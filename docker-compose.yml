@@ -1,22 +1,21 @@
 version: '3'
 services:
     nginx:
-        image: nginx:stable-alpine
+        image: nginx:alpine
         ports:
             - '80:80'
         volumes:
             - ./nginx/html:/etc/nginx/html:ro
             - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
             - ./nginx/users:/etc/nginx/users:ro
-            - kumanodocs_static:/var/kumanodocs/static:ro
+            - kumanodocs_hanami_static:/var/kumanodocs-hanami/assets:ro
+            - kumanodocs_hanami_sock:/tmp/sockets
         links:
             - kumanodocs-hanami
-            - kumanodocs
             - menu
             - bukai-issue-creator
         depends_on:
             - kumanodocs-hanami
-            - kumanodocs
             - menu
             - bukai-issue-creator
         environment:
@@ -28,6 +27,8 @@ services:
             - "2300"
         volumes:
             - ./kumanodocs-hanami:/app
+            - kumanodocs_hanami_static:/app/public/assets
+            - kumanodocs_hanami_sock:/tmp/sockets
             - /etc/localtime:/etc/localtime
         depends_on:
             - kumanodocs_postgres
@@ -41,16 +42,6 @@ services:
             - postgres_database:/var/lib/postgresql/data
         env_file:
             - ./kumanodocs-hanami/.env.pg
-    kumanodocs:
-        build: ./kumanodocs
-        expose:
-            - '8080'
-        volumes:
-            - ./kumanodocs:/app
-            - kumanodocs_static:/var/static
-            - kumanodocs_database:/var/db
-        environment:
-            - TZ=`ls -la /etc/localtime | cut -d/ -f8-9`
     menu:
         build: ./menu
         expose:
@@ -80,7 +71,8 @@ services:
             - TZ=`ls -la /etc/localtime | cut -d/ -f8-9`
 volumes:
     postgres_database:
-    kumanodocs_static:
+    kumanodocs_hanami_static:
+    kumanodocs_hanami_sock:
     kumanodocs_database:
     menu_database:
     backup_tmp:
