@@ -9,7 +9,7 @@
 	url = https://github.com/kumano-dormitory/menu.git
 [submodule "bukai-issue-creator"]
 	path = bukai-issue-creator
-	url = git@github.com:kumano-dormitory/bukai-issue-creator.git
+	url = https://github.com/kumano-dormitory/bukai-issue-creator.git
 [submodule "kumanodocs-hanami"]
 	path = kumanodocs-hanami
 	url = https://github.com/kumano-dormitory/kumanodocs-hanami.git
