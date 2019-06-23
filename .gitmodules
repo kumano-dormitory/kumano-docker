@@ -13,3 +13,6 @@
 [submodule "kumanodocs-hanami"]
 	path = kumanodocs-hanami
 	url = https://github.com/kumano-dormitory/kumanodocs-hanami.git
+[submodule "menu-sinatra"]
+	path = menu-sinatra
+	url = https://github.com/kumano-dormitory/menu-sinatra.git
