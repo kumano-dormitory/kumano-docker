@@ -44,15 +44,13 @@ services:
         env_file:
             - ./kumanodocs-hanami/.env.pg
     menu:
-        build: ./menu
+        build: menu-sinatra
         expose:
-            - "3000"
+            - "4567"
         volumes:
-            - ./menu:/app_readonly:ro
             - menu_database:/var/db
         environment:
             - TZ=`ls -la /etc/localtime | cut -d/ -f8-9`
-        privileged: true # to enable mount overlay
 
     bukai-issue-creator:
         build: ./bukai-issue-creator
