@@ -4,10 +4,12 @@ services:
         image: nginx:alpine
         ports:
             - '80:80'
+            - '443:443'
         volumes:
             - ./nginx/html:/etc/nginx/html:ro
             - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
             - ./nginx/users:/etc/nginx/users:ro
+            - ./nginx/secrets:/etc/nginx/secrets:ro
             - kumanodocs_hanami_static:/var/kumanodocs-hanami:ro
             - kumanodocs_hanami_sock:/tmp/sockets
         links:
