@@ -17,5 +17,4 @@ REMOTEFILE = "/" + os.path.basename(LOCALFILE)
 if __name__ == "__main__":
     dbx = dropbox.Dropbox(TOKEN)
     with open(LOCALFILE, 'rb') as f:
-        dbx.files_upload(f, REMOTEFILE, mode=WriteMode("overwrite"))
-
+        dbx.files_upload(f.read(), REMOTEFILE, mode=WriteMode.overwrite)
