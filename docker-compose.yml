@@ -63,7 +63,7 @@ services:
         build: ./backup
         volumes:
             - ./backup:/app
-            - kumanodocs_database:/var/db/kumanodocs:ro
+            - kumanodocs_hanami_sock:/tmp
             - menu_database:/bar/db/menu:ro
             - backup_tmp:/var/backup
         environment:
