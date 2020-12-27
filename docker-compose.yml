@@ -11,6 +11,7 @@ services:
             - ./nginx/users:/etc/nginx/users:ro
             - ./nginx/secrets:/etc/nginx/secrets:ro
             - kumanodocs_hanami_static:/var/kumanodocs-hanami:ro
+            - ./kumanodocs-hanami/public/sw.js:/var/kumanodocs-hanami/sw.js:ro
             - kumanodocs_hanami_sock:/tmp/sockets
         links:
             - kumanodocs-hanami
