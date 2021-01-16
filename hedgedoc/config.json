@@ -22,6 +22,7 @@
         },
         "allowAnonymous": false,
         "allowAnonymousEdits": true,
+        "defaultPermission": "locked",
         "cookiePolicy": "lax",
         "sessionSecret": "secret"
     }

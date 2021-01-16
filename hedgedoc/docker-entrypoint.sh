@@ -2,7 +2,7 @@
 
 # Use gosu if the container started with root privileges
 UID="$(id -u)"
-[ "$UID" -eq 0 ] && GOSU="gosu hedgedoc" || GOSU=""
+GOSU=""
 
 if [ "$HMD_DB_URL" != "" ] && [ "$CMD_DB_URL" = "" ]; then
     CMD_DB_URL="$HMD_DB_URL"

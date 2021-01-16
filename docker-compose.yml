@@ -19,6 +19,7 @@ services:
             - bukai-issue-creator
         depends_on:
             - kumanodocs-hanami
+            - memo
             - menu
             - bukai-issue-creator
         environment:
@@ -46,7 +47,7 @@ services:
             - ./kumanodocs-hanami/.env.pg
         networks:
             backend:
-                aliaces:
+                aliases:
                     - postgresdb
 
     memo:
