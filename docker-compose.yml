@@ -44,6 +44,32 @@ services:
             - kumanodocs_hanami_sock:/var/run/postgresql
         env_file:
             - ./kumanodocs-hanami/.env.pg
+        networks:
+            backend:
+                aliaces:
+                    - postgresdb
+
+    memo:
+        build:
+            context: .
+            dockerfile: hedgedoc/Dockerfile
+            args:
+                - "VERSION=master"
+                - "HEDGEDOC_REPOSITORY=https://github.com/hedgedoc/hedgedoc.git"
+        environment:
+            - CMD_DB_URL=postgres://kd:kd@postgresdb:5432/hedgedoc
+            - TZ=`ls -la /etc/localtime | cut -d/ -f8-9`
+        expose:
+            - "3000"
+        networks:
+            backend:
+        volumes:
+            - memo_uploads:/hedgedoc/public/uploads
+            - kumanodocs_hanami_sock:/tmp
+        restart: always
+        depends_on:
+            - kumanodocs_postgres
+
     menu:
         build: menu-sinatra
         expose:
@@ -69,10 +95,15 @@ services:
             - backup_tmp:/var/backup
         environment:
             - TZ=`ls -la /etc/localtime | cut -d/ -f8-9`
+
+networks:
+    backend:
+
 volumes:
     postgres_database:
     kumanodocs_hanami_static:
     kumanodocs_hanami_sock:
     kumanodocs_database:
+    memo_uploads:
     menu_database:
     backup_tmp:

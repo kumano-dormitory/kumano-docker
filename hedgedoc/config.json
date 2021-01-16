@@ -1,0 +1,28 @@
+{
+    "production": {
+        "domain": "memo.kumano-ryo.com",
+        "path": "/tmp/hedgedoc.sock",
+        "loglevel": "info",
+        "protocolUseSSL": true,
+        "useSSL": false,
+        "hsts": {
+            "enable": true,
+            "maxAgeSeconds": 31536000,
+            "includeSubdomains": true,
+            "preload": true
+        },
+        "csp": {
+            "enable": true,
+            "directives": {
+            },
+            "upgradeInsecureRequests": "auto",
+            "addDefaults": true,
+            "addDisqus": true,
+            "addGoogleAnalytics": true
+        },
+        "allowAnonymous": false,
+        "allowAnonymousEdits": true,
+        "cookiePolicy": "lax",
+        "sessionSecret": "secret"
+    }
+}
