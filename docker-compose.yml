@@ -17,11 +17,15 @@ services:
             - kumanodocs-hanami
             - menu
             - bukai-issue-creator
+            - growi
+            - ryosai
         depends_on:
             - kumanodocs-hanami
             - memo
             - menu
             - bukai-issue-creator
+            - growi
+            - ryosai
         environment:
             - TZ=`ls -la /etc/localtime | cut -d/ -f8-9`
 
@@ -87,6 +91,54 @@ services:
         env_file:
             - ./bukai-issue-creator/.env
 
+    growi:
+        build:
+            context: ./growi
+            dockerfile: ./Dockerfile
+        expose:
+            - "3000"
+        links:
+            - mongo:mongo
+        depends_on:
+            - mongo
+        environment:
+            - MONGO_URI=mongodb://mongo:27017/growi
+            - PASSWORD_SEED=i52PBLrUgY8ak9wyT
+            - FILE_UPLOAD=local     # activate this line if you use local storage of server rather than AWS
+          # - MATHJAX=1             # activate this line if you want to use MathJax
+          # - PLANTUML_URI=http://  # activate this line and specify if you use your own PlantUML server rather than public plantuml.com
+          # - HACKMD_URI=http://    # activate this line and specify HackMD server URI which can be accessed from GROWI client browsers
+          # - HACKMD_URI_FOR_SERVER=http://hackmd:3000  # activate this line and specify HackMD server URI which can be accessed from this server container
+          # - FORCE_WIKI_MODE='public'    # activate this line to force wiki public mode
+          # - FORCE_WIKI_MODE='private'   # activate this line to force wiki private mode
+
+        command: "dockerize
+                  -wait tcp://mongo:27017
+                  -timeout 60s
+                  npm run server:prod"
+        restart: unless-stopped
+        volumes:
+            - growi_data:/data
+
+    mongo:
+        image: mongo:4.4
+        expose:
+            - "27017"
+        restart: unless-stopped
+        volumes:
+            - mongo_configdb:/data/configdb
+            - mongo_db:/data/db
+
+    ryosai:
+        build: ./ryosai2021
+        expose:
+            - "8000"
+        volumes:
+            - ./ryosai2021:/app
+            - kumanodocs_hanami_sock:/tmp
+        depends_on:
+            - kumanodocs_postgres
+
     backup:
         build: ./backup
         volumes:
@@ -107,4 +159,8 @@ volumes:
     kumanodocs_database:
     memo_uploads:
     menu_database:
+    growi_data:
+    mongo_configdb:
+    mongo_db:
+    es_data:
     backup_tmp:

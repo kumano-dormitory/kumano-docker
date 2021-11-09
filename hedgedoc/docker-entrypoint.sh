@@ -73,6 +73,9 @@ if [ "$UID" -eq 0 ] && [ "$CMD_IMAGE_UPLOAD_TYPE" = "filesystem" ]; then
     fi
 fi
 
+# remove old socket
+rm /tmp/hedgedoc.sock
+
 # Sleep to make sure everything is fine...
 sleep 3
 
